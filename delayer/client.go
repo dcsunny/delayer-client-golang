@@ -1,9 +1,10 @@
 package delayer
 
 import (
-	"github.com/gomodule/redigo/redis"
 	"errors"
 	"time"
+
+	"github.com/gomodule/redigo/redis"
 )
 
 // 键名
@@ -32,7 +33,7 @@ func (p *Client) Init() error {
 		}
 		p.Conn = conn
 		// 验证密码
-		if (p.Password != "") {
+		if p.Password != "" {
 			if _, err := p.Conn.Do("AUTH", p.Password); err != nil {
 				p.Conn.Close()
 				return err
@@ -51,7 +52,7 @@ func (p *Client) Init() error {
 func (p *Client) Push(message Message, delayTime int, readyMaxLifetime int) (bool, error) {
 	// 参数验证
 	if !message.Valid() {
-		return false, errors.New("Invalid message.");
+		return false, errors.New("Invalid message.")
 	}
 	// 执行事务
 	p.Conn.Send("MULTI")

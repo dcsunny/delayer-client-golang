@@ -1,10 +1,12 @@
 package delayer_test
 
 import (
-	"fmt"
-	"delayer-client-golang/delayer"
 	"crypto/md5"
+	"fmt"
 	"time"
+
+	"github.com/dcsunny/delayer-client-golang/delayer"
+
 	"github.com/gomodule/redigo/redis"
 )
 
@@ -21,9 +23,9 @@ func Example() {
 
 	// 通过已有连接创建客户端
 	pool := redis.Pool{}
-	conn := pool.Get();
+	conn := pool.Get()
 	cli1 := delayer.Client{
-		Conn:conn,
+		Conn: conn,
 	}
 	cli1.Init()
 }
@@ -57,7 +59,7 @@ func ExampleClient_Pop() {
 		Password: "",
 	}
 	cli.Init()
-	msg, err := cli.Pop("test");
+	msg, err := cli.Pop("test")
 	fmt.Println(msg)
 	fmt.Println(err)
 }
@@ -71,7 +73,7 @@ func ExampleClient_BPop() {
 		Password: "",
 	}
 	cli.Init()
-	msg, err := cli.BPop("test", 10);
+	msg, err := cli.BPop("test", 10)
 	fmt.Println(msg)
 	fmt.Println(err)
 }
