@@ -17,11 +17,15 @@ const (
 
 // 客户端结构
 type Client struct {
-	Pool     *redis.Pool
-	Host     string
-	Port     string
-	Database int
-	Password string
+	Pool            *redis.Pool
+	Host            string
+	Port            string
+	Database        int
+	Password        string
+	MaxIdle         int
+	MaxActive       int
+	IdleTimeout     int64
+	ConnMaxLifetime int64
 }
 
 // 初始化
@@ -45,6 +49,10 @@ func (p *Client) Init() error {
 			}
 			return c, nil
 		},
+		MaxIdle:         p.MaxIdle,
+		MaxActive:       p.MaxActive,
+		IdleTimeout:     time.Duration(p.IdleTimeout) * time.Second,
+		MaxConnLifetime: time.Duration(p.ConnMaxLifetime) * time.Second,
 	}
 	p.Pool = pool
 	return nil
