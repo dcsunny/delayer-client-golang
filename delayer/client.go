@@ -38,12 +38,12 @@ func (p *Client) Init() error {
 				return nil, err
 			}
 			if p.Password != "" {
-				if _, err := c.Do("AUTH", p.Password); err != nil {
+				if _, err = c.Do("AUTH", p.Password); err != nil {
 					c.Close()
 					return nil, err
 				}
 			}
-			if _, err := c.Do("SELECT", p.Database); err != nil {
+			if _, err = c.Do("SELECT", p.Database); err != nil {
 				c.Close()
 				return nil, err
 			}
